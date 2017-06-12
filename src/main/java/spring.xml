@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+		
+<bean id ="triangle" class="org.msankar.springtut.springdemo.Triangle">
+	<!-- This is setter injection -->
+	<!-- <property name="type" value="Equilateral"></property> -->
+
+	
+	<!--  Constructor injection
+	<constructor-arg type="java.lang.String" value="Equilateral"></constructor-arg>
+	<constructor-arg type="int" value = "20"></constructor-arg>
+	 -->
+	
+	<constructor-arg index="0" value="Equilateral"></constructor-arg>
+	<constructor-arg index="1" value = "20"></constructor-arg>
+	
+</bean>
+
+
+<!--  This is one way of doing injecting object into an object  -->
+<!-- 
+<bean id="newTriangle" class="org.msankar.springtut.springdemo.NewTriangle">
+	<property name="pointA" ref="zeroPoint" />
+	<property name="pointB" ref="onePoint" />
+	<property name="pointC" ref="twoPoint" />
+</bean>
+-->
+
+<bean id="autowireTriangle" class="org.msankar.springtut.springdemo.AutowireTriangle" autowire="byName"/>
+
+<!--  This is second way of injecting obj into a obj. -->
+<!-- This way pointB and pointC are inner beans, consolidation of values in one place. -->
+<bean id="newTriangle" class="org.msankar.springtut.springdemo.NewTriangle" name="newTriangle-name">
+    <property name="pointA" ref="zeroPoint" /> 
+	<!-- <property name="pointA"> <idref bean="zeroPoint"/></property> -->
+	
+	<property name="pointB">
+		<bean class="org.msankar.springtut.springdemo.Point">
+			<property name="x" value="0"></property>
+			<property name="y" value="20"></property>
+		</bean>
+	</property>
+	<property name="pointC">
+		<bean class="org.msankar.springtut.springdemo.Point">
+			<property name="x" value="-20"></property>
+			<property name="y" value="0"></property>
+		</bean>
+	</property>
+</bean>
+
+<bean id="collTriangle" class="org.msankar.springtut.springdemo.CollTriangle">
+	<property name="points">
+		<list>
+		<ref bean="zeroPoint"/>
+		<ref bean="onePoint"/>
+		<ref bean="twoPoint"/>
+		</list>
+	</property>
+</bean>
+
+<bean id="zeroPoint" class="org.msankar.springtut.springdemo.Point">
+	<property name="x" value="0"></property>
+	<property name="y" value="0"></property>
+</bean>
+
+<bean id="onePoint" class="org.msankar.springtut.springdemo.Point">
+	<property name="x" value="-20"></property>
+	<property name="y" value="0"></property>
+</bean>
+
+<bean id="twoPoint" class="org.msankar.springtut.springdemo.Point">
+	<property name="x" value="0"></property>
+	<property name="y" value="20"></property>
+</bean>
+
+<bean id="pointA" class="org.msankar.springtut.springdemo.Point">
+	<property name="x" value="0"></property>
+	<property name="y" value="0"></property>
+</bean>
+
+<bean id="pointB" class="org.msankar.springtut.springdemo.Point">
+	<property name="x" value="-20"></property>
+	<property name="y" value="0"></property>
+</bean>
+
+<bean id="pointC" class="org.msankar.springtut.springdemo.Point">
+	<property name="x" value="0"></property>
+	<property name="y" value="20"></property>
+</bean>
+
+<!-- This can be used anywhere in the app as a ref, or as a context.getBean()  -->
+<alias name="newTriangle" alias="newTriangle-alias"/>
+</beans>

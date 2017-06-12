@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+    	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd"
+		default-init-method="myInit" default-destroy-method="myDestroy">
+		
+	<context:component-scan base-package="org.msankar.orderfulfillment.springdemo"></context:component-scan>
+	<context:annotation-config></context:annotation-config>
+	
+	<aop:aspectj-autoproxy/>
+	
+	<bean name="triangle" class="org.msankar.orderfulfillment.springaop.model.Triangle">
+		<property name="name" value="TriangleName"/>
+	</bean>
+	
+	<bean name="circle" class="org.msankar.orderfulfillment.springaop.model.Circle"/>
+	
+	<bean name="shapeService" class="org.msankar.orderfulfillment.springaop.service.ShapeService" autowire="byName">
+	</bean>
+	
+	<bean name="loggingAspect" class="org.msankar.orderfulfillment.springaop.aspect.LoggingAspect"></bean>
+	
+	<aop:config>
+		<aop:aspect id="loggingAspect" ref="loggingAspect"> <!-- This is equal to having @Aspect -->
+			<aop:pointcut expression="execution(* get*(..))" id="allGetters"/>
+			<!-- aop:around method="aroundAdvice" pointcut-ref="allGetters"/> -->
+			<aop:around method="aroundAdvice" pointcut="execution(* get*(..))"/>
+		</aop:aspect>
+	</aop:config>
+			
+</beans>		

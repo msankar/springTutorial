@@ -1,0 +1,63 @@
+Bean Scopes
+
+1. Singleton ==> Only once per spring container. In our example, triangle would be 
+initialized once and a call to getBean() would have give you the same object.
+
+2. Prototype ==> New bean created with every request or reference. Every getBean() or ref creates a new instance
+
+3.WEB_AWARE CONTEXT BEAN SCOPES
+===============================
+3. Request ==> New bean per servlet request.
+4. Session ==> New bean per session.
+5. Global Session ==> New bean per global HTTP session.
+
+
+BeanPostProcessor
+=================
+Tells spring that there is some processing that spring needs to do after initializing the bean.
+
+
+EVENT HANDLING
+==============
+Event publisher
+Event listener
+Event
+
+Spring provides
+APplicationListener
+ApplicationEvent Publisher
+ApplicationEvent
+
+
+Cross Cutting concerns
+=======================
+Logging
+Transactions
+Security
+
+Aspect - logging aspect a class with special privileges.
+You do not reference these aspects in the code.
+Define a aspect configuration. 
+Make changes to aspect configuration =
+enables bulk configs.
+
+Wrapping aspects around methods.
+Aspect Code then target method then aspect code.
+
+STEPS IN AOP
+**  Write aspects
+**  Configure where aspects apply
+
+Spring helps with dependency 
+
+
+
+Package names
+===================
+* aspect
+* model (data transfer objects)
+* impl (Implementation of the service interfaces)
+* service ( Service Interfaces)
+*
+
+
